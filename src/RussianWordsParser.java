@@ -15,7 +15,6 @@ public class RussianWordsParser implements Parser{
         this.wordsFrequency = new TreeMap<>();
 
     }
-
     @Override
     public void parse() {
         if(!wordsFrequency.isEmpty()) {
@@ -55,5 +54,26 @@ public class RussianWordsParser implements Parser{
 
     public Map<String, Integer> frequency() {
         return wordsFrequency;
+    }
+    public String mostFrequentWord() {
+        int biggestFrequency = 0;
+        String mostFrequentWordFound = null;
+        for (Map.Entry<String, Integer> entry : wordsFrequency.entrySet()) {
+            if (entry.getValue() > biggestFrequency) {
+                biggestFrequency = entry.getValue();
+                mostFrequentWordFound = entry.getKey();
+            }
+        }
+        String wordWithBiggestFrequency = String.format("Слово: %s , встречается: %d раз. Это самое часто используемое слово\n\n", mostFrequentWordFound, biggestFrequency);
+        return wordWithBiggestFrequency;
+    }
+    //возвращает среднюю частоту каждого слова.
+    public double averageFrequency(){
+        //Для реализации метода нам нужно просуммировать все значения Map’a и поделить эту сумму на размер мапа.
+        int sumOfAllFrequency = 0;
+        for (Map.Entry<String, Integer> entry : wordsFrequency.entrySet()) {
+            sumOfAllFrequency = sumOfAllFrequency + entry.getValue();
+        }
+        return sumOfAllFrequency / wordsFrequency.size();
     }
 }
